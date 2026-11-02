@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Пять кухонных проб</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #273b2e;
+      --muted: #596559;
+      --green: #244b35;
+      --cream: #f7f3e9;
+      --paper: #fffdf7;
+      --line: #dedfcd;
+      --accent: #b97442;
+      --safety-bg: #f7ecda;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-synthesis: none;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: 1rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--green); text-underline-offset: 0.2em; }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    .wrap { width: min(100% - 2rem, 70rem); margin-inline: auto; }
+    .hero {
+      overflow: hidden;
+      background: #e9ecdd;
+      border-bottom: 1px solid #d6ddca;
+    }
+    .hero-inner { position: relative; padding-block: 3.5rem 3.75rem; }
+    .hero-inner::after {
+      content: "";
+      position: absolute;
+      width: 13rem;
+      aspect-ratio: 1;
+      right: -7rem;
+      bottom: -7rem;
+      border: 1px solid rgba(36, 75, 53, 0.18);
+      border-radius: 50%;
+      box-shadow: 0 0 0 2rem rgba(36, 75, 53, 0.035), 0 0 0 4rem rgba(36, 75, 53, 0.025);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 1.2rem;
+      color: #506b50;
+      font-size: 0.75rem;
+      font-weight: 750;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 { color: var(--green); line-height: 1.14; }
+    h1, h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; }
+    h1 { max-width: 15ch; margin: 0; font-size: clamp(2.65rem, 9vw, 5.25rem); letter-spacing: -0.035em; }
+    .subtitle { max-width: 34rem; margin: 1.35rem 0 0; color: #4d6351; font-size: clamp(1.05rem, 2.5vw, 1.25rem); line-height: 1.5; }
+    main { padding-block: 1.5rem 4rem; }
+    .intro { display: grid; gap: 1rem; }
+    .panel { border: 1px solid var(--line); border-radius: 1rem; padding: 1.35rem; background: var(--paper); }
+    .panel h2 { margin: 0 0 0.8rem; font-size: 1.6rem; }
+    .panel p:last-child, .panel ul:last-child, .panel ol:last-child { margin-bottom: 0; }
+    .safety { background: var(--safety-bg); border-color: #dcc8a9; border-left: 0.35rem solid var(--accent); }
+    .safety-label { display: block; margin-bottom: 0.45rem; color: #88502f; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+    .safety p { margin: 0; }
+    .toc ol { margin: 0; padding-left: 1.4rem; }
+    .toc li + li { margin-top: 0.45rem; }
+    .guide { padding-top: 3.5rem; }
+    .section-kicker { margin: 0 0 0.55rem; color: #73816d; font-size: 0.75rem; font-weight: 750; letter-spacing: 0.12em; text-transform: uppercase; }
+    .guide > h2 { margin: 0; font-size: clamp(2rem, 5vw, 3rem); }
+    .guide-rule { width: 3rem; height: 0.2rem; margin: 1.25rem 0 2rem; background: #c6976b; border: 0; }
+    /* Reusable styles for verified content inserted at GUIDE_CONTENT. */
+    .recipe-grid { display: grid; gap: 1rem; }
+    .recipe-card { min-width: 0; padding: 1.5rem; background: var(--paper); border: 1px solid var(--line); border-radius: 1rem; }
+    .recipe-card h3 { margin: 0 0 0.75rem; font-family: Georgia, "Times New Roman", serif; font-size: 1.5rem; }
+    .recipe-card p, .recipe-card ul, .recipe-card ol { margin-block: 0.75rem; }
+    .recipe-card li + li { margin-top: 0.3rem; }
+    .recipe-card > :last-child { margin-bottom: 0; }
+    .table-scroll { max-width: 100%; overflow-x: auto; margin-block: 1rem; }
+    .table-scroll:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .recipe-card table { width: 100%; min-width: 32rem; border-collapse: collapse; font-size: 0.95rem; line-height: 1.45; }
+    .recipe-card th, .recipe-card td { padding: 0.65rem 0.8rem; border: 1px solid var(--line); vertical-align: top; }
+    .recipe-card th { background: #e9ecdd; color: var(--green); font-weight: 700; text-align: left; }
+    footer { padding: 1.5rem 0 2.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.875rem; }
+    footer p { margin: 0; }
+    @media (min-width: 48rem) {
+      .wrap { width: min(100% - 4rem, 70rem); }
+      .hero-inner { padding-block: 5.5rem 6rem; }
+      main { padding-top: 2rem; }
+      .intro { grid-template-columns: 1.35fr 1fr; align-items: stretch; }
+      .panel { padding: 1.75rem; }
+      .recipe-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print {
+      @page { margin: 16mm; }
+      html { scroll-behavior: auto; }
+      body { background: #fff; color: #111; font-size: 10.5pt; }
+      .wrap { width: 100%; }
+      .hero { background: none; border-bottom: 1px solid #888; }
+      .hero-inner { padding: 0 0 1rem; }
+      .hero-inner::after { display: none; }
+      h1 { max-width: none; font-size: 28pt; }
+      h1, h2, h3, a, .subtitle, .eyebrow, .section-kicker, .safety-label { color: #111; }
+      main { padding: 1rem 0; }
+      .intro, .recipe-grid { display: block; }
+      .panel, .recipe-card { margin-bottom: 0.8rem; padding: 0.8rem; background: #fff; border: 1px solid #888; border-radius: 0; break-inside: avoid; }
+      .safety { border-left: 3pt solid #555; }
+      .guide { padding-top: 1rem; }
+      .guide > h2 { font-size: 20pt; }
+      .guide-rule { background: #888; }
+      footer { padding: 0.75rem 0 0; color: #333; }
+      a { text-decoration: none; }
+    }
+
+.recipe-card h2 {font-size:1.9rem; margin-top:0}
+.recipe-card h3 {font-family:inherit;font-size:1.1rem;margin-top:1.5rem}
+a {overflow-wrap:anywhere} .recipe-grid {gap:1.5rem}
+.table-scroll {overscroll-behavior-x:contain; -webkit-overflow-scrolling:touch; border-radius:.3rem}
+.recipe-card table {min-width: min(32rem, 100%)}
+@media (max-width: 40rem) {
+  .recipe-card {padding:1rem} .recipe-card table {min-width:30rem}
+  .recipe-card th, .recipe-card td {padding:.55rem}
+}
+@media print {
+  .table-scroll {overflow:visible} .recipe-card table {min-width:0; font-size:8pt}
+  body.manager .hero, body.manager .intro, body.manager .guide > h2,
+  body.manager .guide > .section-kicker, body.manager .guide-rule, body.manager footer {display:none}
+  body.manager main, body.manager .guide {padding:0}
+  body.manager .recipe-card {break-inside:auto; border:0; padding:0; margin:0 0 .7rem}
+  body.manager #chapter-1 {break-after:page; font-size:8pt; line-height:1.2}
+  body.manager #chapter-1 h2 {font-size:14pt; margin:0 0 .3rem}
+  body.manager #chapter-1 p {margin:.3rem 0}
+  body.manager #chapter-1 .table-scroll {margin:.3rem 0}
+  body.manager #chapter-1 th, body.manager #chapter-1 td {padding:.18rem; line-height:1.2}
+  body.manager #chapter-2 {break-before:page}
+}
+</style>
+</head>
+<body class="manager">
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <p class="eyebrow">Инструкция руководителю и оператору</p>
+      <h1>Пять кухонных проб</h1>
+      <p class="subtitle">Обзор смены и подробные карточки малых партий</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="intro">
+      <section class="panel safety" id="safety" aria-labelledby="safety-title">
+        <span class="safety-label">Прежде чем начать</span>
+        <h2 id="safety-title">Безопасность прежде всего</h2>
+        <p>Используйте проверенное сырьё и соблюдайте действующие требования к обработке, хранению и маркировке молочной продукции. Применяйте проверенные технологические инструкции и фиксируйте результаты пробной партии.</p>
+      </section>
+      <nav class="panel toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">Содержание</h2>
+        <ol>
+          <li><a href="#safety">Безопасность прежде всего</a></li>
+          <li><a href="index.html">← Публичное руководство</a></li><li><a href="#chapter-1">Обзор смены: пять малых проб</a></li><li><a href="#chapter-2">Перед стартом: рабочий контроль</a></li><li><a href="#chapter-3">1. Крем-чиз — приоритет</a></li><li><a href="#chapter-4">2. Масло</a></li><li><a href="#chapter-5">3. Сметана</a></li><li><a href="#chapter-6">4. Маскарпоне с пищевой лимонной кислотой</a></li><li><a href="#chapter-7">5. Панна-котта</a></li><li><a href="#chapter-8">После каждой пробы</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <section class="guide" id="guide" aria-labelledby="guide-title">
+      <p class="section-kicker">Практическая часть</p>
+      <h2 id="guide-title">Обзор и карточки</h2>
+      <hr class="guide-rule">
+      <div class="recipe-grid"><section class="recipe-card" id="chapter-1"><h2>Обзор смены: пять малых проб</h2>
+<p><strong>Приоритет — крем-чиз</strong> для сравнения с покупным в конкретном блюде. Руководитель назначает опытного молочного оператора, согласует сырьё, оборудование, время и контроль; оператор ведёт партию и измерения. Около <strong>10 л сливок в неделю — предварительная оценка</strong>, подтвердить замером; сначала оставить необходимое кухне, затем выделить порции на тесты. Пробы можно проводить по очереди.</p>
+<div class="table-scroll" role="region" aria-label="Таблица: при необходимости прокрутите горизонтально" tabindex="0"><table>
+<thead>
+<tr>
+<th>Проба</th>
+<th>Порция и примерный график</th>
+<th>Активная работа / общее время</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Крем-чиз</td>
+<td>2000 г смеси, 30°C; старт утром, через 6 ч проверить pH, далее вода, отцеживание и холод</td>
+<td>Около 1–2 ч суммарно / <strong>9–12 ч плюс охлаждение</strong>, только если сквашивание идёт по ориентиру Guelph; оценка планирования</td>
+</tr>
+<tr>
+<td>Масло</td>
+<td>600 мл сливок; сделать в свободный интервал</td>
+<td><strong>10–30 мин</strong> / 10–30 мин плюс охлаждение, оценка</td>
+</tr>
+<tr>
+<td>Сметана</td>
+<td>2000 г смеси, 26°C; старт с резервом персонала на ночь и все замеры</td>
+<td>Около 1–2 ч суммарно / резерв <strong>12–24 ч</strong>, план, не прогноз и не предел безопасности; затем охлаждение</td>
+</tr>
+<tr>
+<td>Маскарпоне</td>
+<td>500 мл сливок + пищевая лимонная кислота; подготовить днём, отцедить в холодильнике</td>
+<td>Около 20–30 мин / <strong>12–24 ч в холодильнике плюс подготовка</strong>, оценка</td>
+</tr>
+<tr>
+<td>Панна-котта</td>
+<td>310 мл сливок, шесть стаканчиков; сделать утром для проверки позже</td>
+<td>Около 10–20 мин / <strong>около 5–6 ч</strong>, оценка</td>
+</tr>
+</tbody>
+</table></div>
+<p>Для одновременной ферментации нужны <strong>две независимые контролируемые зоны 26°C и 30°C</strong>. С одной камерой проводить сыр и сметану последовательно. Запрет на инкубацию без присутствия персонала относится и к ночи; при невозможности наблюдения не запускать. Все времена выше ориентировочные и не гарантируют результат.</p>
+<p><strong>Общий резерв сырья для всех пяти проб:</strong> при сливках 35% — <strong>1587,3 г сливок и 2412,7 г молока</strong> на сыр и сметану; при 40% — <strong>1369,9 г сливок и 2630,1 г молока</strong>. Дополнительно масло, маскарпоне и панна-котта требуют <strong>1410 мл сливок</strong>, а панна-котта — ещё <strong>375 мл молока</strong>. Граммы и миллилитры не складывать: плотность не измерена. Остальные ингредиенты — в карточках. Это расчёт по указанным малым пробам, не распределение всего недельного запаса.</p>
+</section><section class="recipe-card" id="chapter-2"><h2>Перед стартом: рабочий контроль</h2>
+<ul>
+<li>Руководитель и оператор подтверждают доброкачественное пастеризованное молоко и сливки, жирность, дату, партии и хранение ≤4°C. Сепаратор не пастеризует; неизвестную обработку сначала решить валидированной пастеризацией.</li>
+<li>Подготовить продезинфицированный инвентарь, питьевую воду, лёд, термометр, весы, защищённое место для отцеживания, чистую ткань, ёмкости и свободный холодильник ≤4°C. Для ферментации нужны калиброванный pH-метр с буферами, чистые средства отбора и контролируемая температура; отобранную пробу не возвращать.</li>
+<li>Проверить идентичность и формат культуры, срок, активность в U, инструкцию и возможность точно отмерить малую навеску. До старта разрешить у поставщика/производителя и ответственного специалиста расхождение <strong>0,20 U/л</strong> в <a href="https://cfubio.co.za/wp-content/uploads/2025/02/eXactR_Sour-Cream_Stirred_Recipe_2018_EN.pdf">рецепте Hansen для сметаны</a> и <strong>0,10 U/л</strong> в <a href="https://hjemmeriet.com/da/ChrHansen/Products/CHN-22/PI_EU_CHN-22_100101_EN.pdf">общем листе FD-DVS CHN-22</a> для конкретного продукта и применения. Не уменьшать дозу молча. В сыре 0,20 U/л — предварительный перенос, не подтверждённая производителем сырная доза.</li>
+<li><strong>Расчёт культуры:</strong> нужные U = измеренные литры всей смеси × 0,20, если эта пробная норма согласована. Для порошка масса в г = нужные U × фактическая масса порошка в пакете, г / U на пакете. Фактическую массу измерить либо получить у производителя; не придумывать. Обученный оператор делит по действующему протоколу с точностью, пригодной для малой цели; если это невозможно — отложить. Целый пакет вместо доли не вносить. Перед вскрытием продезинфицировать пакет; хранение и остаток — по инструкции конкретного формата и производителя, не предполагать допустимость повторной заморозки.</li>
+<li>До старта распределить присутствие и передачу смены на всё сквашивание. При отсутствии условий не начинать. Номер партии, сырьё, дозу, время, температуры, pH, выход и отклонения записывать. Плесень, необычный запах/цвет, чрезмерный газ или иное отклонение — остановить и изолировать; неудачные и неоценённые партии не пробовать и не продавать. Нормальный запах и pH не доказывают безопасность. Коммерческий срок годности не установлен.</li>
+</ul>
+<p><strong>Контрольные точки ферментации — выбранный рабочий протокол, не микробиологически валидированные пределы безопасности:</strong> pH и температура при внесении, далее каждые 2 часа и каждый час при приближении к цели. Для сыра через 6 часов от внесения: если pH 4,6 не достигнут, остановить, изолировать, не пробовать и разобраться со специалистом, без слепого продолжения ночью. Это точка разбора по ориентиру Guelph, не утверждение, что продукт становится небезопасен ровно через 6 часов. У Hansen число часов для сметаны не задано; резервировать 12–24 часа как план с персоналом, в 24 часа при недостижении цели остановить и разобрать. Это плановая граница, не доказательство безопасности до 24 часов. При отклонениях или отсутствии персонала остановить раньше.</p>
+</section><section class="recipe-card" id="chapter-3"><h2>1. Крем-чиз — приоритет</h2>
+<p><strong>Состав на 2000 г смеси, 12% жира</strong>, молоко 3,5%: при сливках 35% взять <strong>1460,3 г молока + 539,7 г сливок</strong>, при 40% — <strong>1534,2 г + 465,8 г</strong>. При другой жирности пересчитать. Измерить объём смеси для дозы CHN-22; масса 2000 г не означает ровно 2 л. Фермент, CaCl₂ и стабилизаторы не добавлять.</p>
+<ol>
+<li>Нагреть всю смесь до <strong>70°C на 30 мин</strong>, затем охладить до <strong>30°C</strong> в ледяной бане. Guelph предусматривает гомогенизацию при 63°C и 69–103 бар; без неё записать адаптацию, блендер не заменяет её.</li>
+<li>При 30°C внести согласованную пробную дозу CHN-22, ориентир <strong>0,20 U/л</strong>, медленно мешать 10–15 мин. Записать данные и следовать контрольным точкам выше до <strong>pH 4,6</strong>; на 6 ч принять указанное решение.</li>
+<li>При достижении pH размешать сгусток, добавлять питьевую воду <strong>76°C</strong>, перемешивая, до <strong>51°C самой массы</strong>. Фиксированной дозы воды источник не задаёт; записать добавленное. Планово взять ёмкость <strong>не менее 5 л</strong> для этой 2 кг партии и следить за запасом места; при необходимости использовать большую ёмкость.</li>
+<li>Перелить в мешок, предварительно прокипячённый; отцедить около <strong>2 ч</strong> в чистом защищённом месте. Взвесить сгусток и добавить <strong>7,5 г соли на 1 кг сгустка</strong> (на 500 г — 3,75 г). Упаковать, быстро охладить ледяной баней, затем в холодильнике ≤4°C до <strong>2°C</strong>. Записать время и температуру охлаждения.</li>
+<li>Взвесить выход. Оценить пригодную партию после охлаждения и сравнить в целевом блюде с покупной. Guelph указывает 2,7–3,1 кг сыра на кг жира; для 240 г исходного жира это <strong>648–744 г</strong>, лишь оценка по источнику, не гарантия для адаптации.</li>
+</ol>
+<p><a href="https://books.lib.uoguelph.ca/cheesemakingtechnologyebook/chapter/8-6-fresh-cheese-acid-coagulated-cheese/">Текущая процедура Guelph</a> указывает подходящую культуру с достижением pH за <strong>5–6 ч</strong>, без добавления сычужного фермента; такая скорость для этой CHN и дозы не подтверждена.</p>
+</section><section class="recipe-card" id="chapter-4"><h2>2. Масло</h2>
+<p><strong>600 мл</strong> холодных жирных пастеризованных сливок (ориентир ≥36% жира), ледяная питьевая вода, соль по желанию. Взбивать в глубокой чаше до отделения крупинок масла и пахты; собрать пахту отдельно до промывки. Промыть ледяной водой, вымесить и хорошо отжать, посолить по желанию. Взвесить, упаковать, охладить до ≤4°C. Оценить выход и отсутствие свободной жидкости. Автор <a href="https://www.bbcgoodfood.com/recipes/home-churned-butter">BBC</a> указывает 200 г из 600 мл своих сливок — только ориентир. Пахта не является закваской.</p>
+</section><section class="recipe-card" id="chapter-5"><h2>3. Сметана</h2>
+<p><strong>2000 г смеси, 20% жира</strong>, молоко 3,5%: сливки 35% — <strong>952,4 г молока + 1047,6 г сливок</strong>; сливки 40% — <strong>1095,9 г + 904,1 г</strong>. Объём смеси измерить. Для традиционной сметаны Hansen перечисляет F-DVS CHN-22/CHN-13 или FD-DVS CHN-22; сначала согласовать применимую дозу как выше. Без сычужного фермента и отцеживания.</p>
+<ol>
+<li>Нагреть всю смесь до <strong>85°C на 30 мин</strong>, быстро охладить ледяной баней до <strong>26°C</strong>. Гомогенизация есть в оригинале; её отсутствие записать как адаптацию.</li>
+<li>Внести согласованную культуру, ориентир рецепта <strong>0,20 U/л</strong>, перемешивать 10–15 мин. Выдерживать при 26°C, следуя графику pH и присутствия выше, до <strong>pH 4,55–4,65</strong>.</li>
+<li>При достижении цели перемешать до гладкости, быстро охладить в ледяной бане и холодильнике до ≤4°C. Записать время, температуру, консистенцию и выход. Резерв 12–24 часа — только для планирования: реальное время неизвестно.</li>
+</ol>
+</section><section class="recipe-card" id="chapter-6"><h2>4. Маскарпоне с пищевой лимонной кислотой</h2>
+<p><strong>500 мл</strong> пастеризованных сливок ≥35% жира, <strong>2 г</strong> пищевой лимонной кислоты, <strong>5 мл</strong> тёплой питьевой воды. Проверить спецификацию кислоты и точность весов; автор не указывает её форму.</p>
+<ol>
+<li>Растворить кислоту в воде; осторожно нагреть сливки до <strong>82–85°C</strong>, не кипятить. Снять с огня, влить раствор и мягко мешать <strong>2–3 мин</strong>.</li>
+<li>Источник оставляет массу на 1 ч при комнатной температуре. Здесь <strong>адаптация</strong>: закрытую ёмкость быстро охладить в ледяной бане, затем в холодильнике ≤4°C, записывая время и температуру; влияние изменения на выход и текстуру проверить.</li>
+<li>Перелить в чистую ткань на сите, прикрыть от загрязнений, отцеживать <strong>12–24 ч в холодильнике ≤4°C</strong>. Упаковать, взвесить и оценить пригодную партию. Около 300 г — ориентир автора, не гарантия; целевой pH источником не установлен.</li>
+</ol>
+<p><a href="https://www.recipesfromitaly.com/homemade-mascarpone-cheese-recipe/">Recipes from Italy: исходный рецепт</a>. <a href="https://www.youtube.com/watch?v=T3vAEPpOq4M">Видео Gemma</a> показывает технику другого рецепта, не дозировку кислоты.</p>
+</section><section class="recipe-card" id="chapter-7"><h2>5. Панна-котта</h2>
+<p>На примерно 6 стаканчиков: <strong>310 мл сливок</strong>, <strong>125 мл + 250 мл молока</strong>, <strong>50 г сахара</strong>, <strong>7 г желатина</strong>, <strong>1½ ч. л. ванили</strong>, щепотка соли. Молоко и сливки пастеризованы.</p>
+<ol>
+<li>Посыпать желатин на 125 мл холодного молока, перемешать, оставить на 5 мин; мягко нагреть до растворения, не кипятить.</li>
+<li>Добавить 250 мл молока, сахар, ваниль и соль; прогреть до растворения сахара, снять и оставить на 10 мин. Вмешать холодные сливки.</li>
+<li>Охлаждать около 1 ч, перемешав на 30-й и 45-й минутах; разлить по чистым стаканчикам, накрыть и охлаждать <strong>не менее 4 ч при ≤4°C</strong>. Проверить нежную устойчивую текстуру без жирового слоя. <a href="https://www.recipetineats.com/panna-cotta/">RecipeTin Eats</a>.</li>
+</ol>
+</section><section class="recipe-card" id="chapter-8"><h2>После каждой пробы</h2>
+<p>Руководитель фиксирует массу выхода, отходы, активное и общее время, фактические температуру и pH, отклонения и стоимость сырья и упаковки. Пригодную партию сравнивают по текстуре и применению в блюде; вкус оценивают только после решения о пригодности. Себестоимость = стоимость ингредиентов и упаковки / масса годного продукта; труд и энергия отдельно. Удачную пробу повторить на другой партии сырья; продажа и срок годности требуют отдельной технологической проверки.</p></section></div>
+    </section>
+  </main>
+
+  <footer><div class="wrap"><p>Подборка по опубликованным рецептам. Требует пробной партии и технологической проверки перед продажей.</p></div></footer>
+</body>
+</html>
